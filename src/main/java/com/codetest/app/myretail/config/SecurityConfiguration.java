@@ -39,9 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(entryPoint)
                 .and()
                 .csrf()
-                .disable()
-        ;
-
+                .disable();
     }
 
     @Bean
