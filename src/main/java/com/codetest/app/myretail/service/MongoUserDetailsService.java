@@ -27,7 +27,6 @@ public class MongoUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found.");
         }
-        //List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return new User(user.getUsername(), user.getPassword(), getGrantedAuthorities(user));
     }
 

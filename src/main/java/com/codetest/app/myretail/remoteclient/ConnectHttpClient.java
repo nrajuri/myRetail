@@ -5,16 +5,18 @@ package com.codetest.app.myretail.remoteclient;
 
 
 import com.codetest.app.myretail.exception.MyRetailException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.io.IOException;
 
 /**
  * @author nrajuri
@@ -34,6 +36,7 @@ public class ConnectHttpClient {
     public ConnectHttpClient() {
     }
 
+    @HystrixCommand(fallbackMethod = "getProductName_FallBack")
     public String getProductNameByRemoteCall(String productId) throws MyRetailException {
 
         try {
@@ -46,24 +49,30 @@ public class ConnectHttpClient {
             // Send request with GET method, and Headers.
             String jsonResponse = restTemplate.getForObject(builder.build().encode().toUri(), String.class);
             if (jsonResponse != null) {
-                JSONObject jsonObject = new JSONObject(jsonResponse);
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonObject = mapper.readTree(jsonResponse);
                 log.debug("JSON Response from Remote Client  :" + jsonResponse.toString());
-                if (jsonObject.getJSONObject("product").getJSONObject("item")
-                        .getJSONObject("product_description") != null) {
-                    JSONObject productDescription = jsonObject.getJSONObject("product").getJSONObject("item")
-                            .getJSONObject("product_description");
-                    productName = productDescription.getString("title");
+                if (jsonObject.get("product").get("item")
+                        .get("product_description") != null) {
+                    JsonNode productDescription = jsonObject.get("product").get("item")
+                            .get("product_description");
+                    productName = productDescription.get("title").asText();
                 } else {
                     log.debug("Product title JSON value Unavailable in Product API");
                     throw new MyRetailException(HttpStatus.NO_CONTENT.value(),
                             "The title does not exists for the product");
                 }
             }
-        } catch (RestClientException | JSONException e) {
-            log.debug("Product API unavailable  :" + apiEndpointURL + productId);
-            throw new MyRetailException(HttpStatus.NOT_FOUND.value(), "Product Remote API unavailable");
+        } catch (IOException e) {
+            throw new MyRetailException(HttpStatus.NOT_FOUND.value(), "Error parsing the remote API response");
         }
         return productName;
+    }
+
+    //Fallback method when the remote client is down.
+    public String getProductName_FallBack(String productId) {
+        log.info("Inside fallBack method. Product API unavailable  :" + apiEndpointURL + "/" + productId);
+        return "";
     }
 
 }

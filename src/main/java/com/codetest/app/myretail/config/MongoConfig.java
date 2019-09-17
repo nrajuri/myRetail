@@ -1,7 +1,8 @@
 package com.codetest.app.myretail.config;
 
 import com.mongodb.MongoClient;
-import cz.jirutka.spring.embedmongo.EmbeddedMongoFactoryBean;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.ReadPreference;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -13,10 +14,12 @@ public class MongoConfig {
 
     @Bean
     public MongoTemplate mongoTemplate() throws IOException {
-        EmbeddedMongoFactoryBean mongo = new EmbeddedMongoFactoryBean();
-        mongo.setBindIp(MONGO_DB_URL);
-        MongoClient mongoClient = mongo.getObject();
-        MongoTemplate mongoTemplate = new MongoTemplate(mongoClient, MONGO_DB_NAME);
+        final MongoClientOptions options = MongoClientOptions.builder()
+                .readPreference(ReadPreference.primaryPreferred())
+                .retryWrites(true)
+                .build();
+        final MongoClient mongoClient = new MongoClient(MONGO_DB_URL, options);
+        final MongoTemplate mongoTemplate = new MongoTemplate(mongoClient, MONGO_DB_NAME);
         return mongoTemplate;
     }
 }

@@ -25,3 +25,13 @@ https://github.com/nrajuri/myRetail.git
 #### To run the application:
 Download the project. Navigate to  the project folder and run mvn spring-boot:run
 Read the API documentation in Swagger2 (run http://localhost:8089/swagger-ui.html on the browser)
+
+#### MyRetail API Solution provides the ability to:
+* Retrieve product and price information by Product Id.
+* Update the price information in the database.
+* Provide basic authentication to the API.
+* One rest end point is not secure/authenticated.
+                               Method               Request                   Credentials
+                                 GET              /products/{id}              [SECURE -- user/user]
+                                 PUT              /products/{id}              [SECURE -- admin/admin, dbuser/dbuser]
+				                 GET              /products                   [NOT SECURE]

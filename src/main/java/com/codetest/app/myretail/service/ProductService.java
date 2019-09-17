@@ -45,6 +45,9 @@ public class ProductService {
 
         //Retrieve title from product API
         productName = connectHttpClient.getProductNameByRemoteCall(productId);
+        if (productName.isEmpty()) {
+            throw new MyRetailException(HttpStatus.NOT_FOUND.value(), "Product Remote API unavailable");
+        }
         return helperObject.generateProductResponse(product, productName);
 
     }

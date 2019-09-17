@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.Cacheable;
 
 /**
  * @author nrajuri
@@ -35,12 +34,16 @@ public class ProductController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_USER')")
-    @Cacheable("Product")
     public ResponseEntity<ProductDto> getProductById(@PathVariable("id") String productId) throws MyRetailException {
-        log.info("Inside getProductById :  " + productId);
-        ProductDto product = productService.getProductById(productId);
-        log.debug(" product Response " + product);
-        return new ResponseEntity<ProductDto>(product, HttpStatus.OK);
+        try {
+            log.info("Inside getProductById :  " + productId);
+            ProductDto product = productService.getProductById(productId);
+            log.debug(" product Response " + product);
+            return new ResponseEntity<ProductDto>(product, HttpStatus.OK);
+        } catch (MyRetailException e) {
+            log.error("Exception occurred while fetching product data.", e.getMessage());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @ExceptionHandler(MyRetailException.class)
