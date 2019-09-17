@@ -36,14 +36,14 @@ public class ProductService {
 
         Product product = new Product();
         String productName = null;
-        //retrive from MongoDB
+        //retrieve from MongoDB
         product = productRepository.findProductByproductId(productId);
         if (product == null) {
             log.debug("Product Not Found Exception while fetching product data from DB ");
             throw new MyRetailException(HttpStatus.NOT_FOUND.value(), "Product not found in DB");
         }
 
-        //Retrieve title from product API
+        //Retrieve title from remote API
         productName = connectHttpClient.getProductNameByRemoteCall(productId);
         if (productName.isEmpty()) {
             throw new MyRetailException(HttpStatus.NOT_FOUND.value(), "Product Remote API unavailable");

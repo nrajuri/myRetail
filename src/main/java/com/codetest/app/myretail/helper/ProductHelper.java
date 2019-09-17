@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductHelper {
-    public ProductDto generateProductResponse(Product product, String productName) throws MyRetailException {
+    public ProductDto generateProductResponse(final Product product, final String productName) throws MyRetailException {
         ProductDto prodResponse = new ProductDto();
         CurrentPriceDto currentPriceResponse = new CurrentPriceDto();
         try {
@@ -24,7 +24,7 @@ public class ProductHelper {
         return prodResponse;
     }
 
-    public Product getProductDomainObject(ProductDto ProductDto) {
+    public Product getProductDomainObject(final ProductDto ProductDto) {
         Product product = new Product();
         CurrentPrice currentPrice = new CurrentPrice();
         product.setProductId(ProductDto.getProductId());

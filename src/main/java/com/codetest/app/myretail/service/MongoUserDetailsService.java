@@ -22,7 +22,7 @@ public class MongoUserDetailsService implements UserDetailsService {
     private UsersRepository repository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         Users user = repository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found.");
@@ -36,7 +36,7 @@ public class MongoUserDetailsService implements UserDetailsService {
      * @param user
      * @return
      */
-    private Collection<GrantedAuthority> getGrantedAuthorities(Users user) {
+    private Collection<GrantedAuthority> getGrantedAuthorities(final Users user) {
         Collection<GrantedAuthority> grantedAuthority = new ArrayList<>();
         List<Role> roles = user.getRoles();
 
