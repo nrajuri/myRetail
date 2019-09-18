@@ -21,6 +21,13 @@ public class MongoUserDetailsService implements UserDetailsService {
     @Autowired
     private UsersRepository repository;
 
+    /**
+     * Finds the user details from the DB.
+     *
+     * @param username
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         Users user = repository.findByUsername(username);
@@ -34,7 +41,7 @@ public class MongoUserDetailsService implements UserDetailsService {
      * Assign Roles to the user.
      *
      * @param user
-     * @return
+     * @return Collection of GrantedAuthority.
      */
     private Collection<GrantedAuthority> getGrantedAuthorities(final Users user) {
         Collection<GrantedAuthority> grantedAuthority = new ArrayList<>();

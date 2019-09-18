@@ -6,6 +6,9 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * @author nrajuri
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @NotEmpty
@@ -20,8 +23,4 @@ public class ProductDto {
     @JsonProperty(value = "current_price")
     private CurrentPriceDto currentPrice;
 
-    @Override
-    public String toString() {
-        return "ProductResponse [productId=" + productId + ", name=" + name + ", currentPrice=" + currentPrice + "]";
-    }
 }

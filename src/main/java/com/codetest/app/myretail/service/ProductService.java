@@ -31,6 +31,12 @@ public class ProductService {
     @Autowired
     private ProductHelper helperObject;
 
+    /**
+     * Gets product information from DB.
+     * @param productId
+     * @return ProductDto
+     * @throws MyRetailException
+     */
     public ProductDto getProductById(final String productId) throws MyRetailException {
         log.info("Inside ProductService().getProductById");
 
@@ -52,11 +58,16 @@ public class ProductService {
 
     }
 
+    /**
+     * Updates product details in the DB.
+     * @param ProductDto
+     * @throws MyRetailException
+     */
     public void updateProductById(final ProductDto ProductDto) throws MyRetailException {
         try {
             Product product = helperObject.getProductDomainObject(ProductDto);
             productRepository.save(product);
-        } catch (Exception exception) { //TODO handle only specific exceptions.
+        } catch (Exception exception) {
             log.debug("Product Not Found Exception while doing update " + exception);
             throw new MyRetailException(HttpStatus.NOT_FOUND.value(), "Product not found while update");
         }

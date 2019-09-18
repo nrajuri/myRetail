@@ -15,10 +15,19 @@ public class Role {
     private String id;
     private String name;
 
+    /**
+     * Default constructor.
+     */
     public Role() {
         // TODO Auto-generated constructor stub
     }
 
+    /**
+     * Parameterized constructor.
+     *
+     * @param id
+     * @param name
+     */
     public Role(String id, String name) {
         this.id = id;
         this.name = name;

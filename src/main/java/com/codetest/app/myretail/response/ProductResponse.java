@@ -2,6 +2,9 @@ package com.codetest.app.myretail.response;
 
 import lombok.Data;
 
+/**
+ * @author nrajuri
+ */
 @Data
 public class ProductResponse {
 

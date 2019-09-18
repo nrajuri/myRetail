@@ -17,9 +17,4 @@ public class CurrentPriceDto {
     @JsonProperty(value = "currency_code")
     private String currencyCode;
 
-    @Override
-    public String toString() {
-        return "CurrentPriceDto [value=" + value + ", currencyCode=" + currencyCode + "]";
-    }
-
 }

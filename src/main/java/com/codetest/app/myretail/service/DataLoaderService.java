@@ -47,7 +47,9 @@ public class DataLoaderService {
         loadUsersInDB();
     }
 
-    //load users in DB
+    /**
+     * Loads users into the DB on start up.
+     */
     private void loadUsersInDB() {
         if (usersRepository != null) {
             this.roleRepository.deleteAll();
@@ -79,7 +81,9 @@ public class DataLoaderService {
         }
     }
 
-    //Load the products in DB
+    /**
+     * Loads products details into the DB at start up.
+     */
     private void loadProductPriceInDB() {
         if (productRepository != null) {
             List<Product> prodList = new ArrayList<Product>();

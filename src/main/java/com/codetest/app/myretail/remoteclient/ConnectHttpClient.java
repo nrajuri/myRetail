@@ -36,6 +36,12 @@ public class ConnectHttpClient {
     public ConnectHttpClient() {
     }
 
+    /**
+     * Makes a call to the remote service to get the product name.
+     * @param productId
+     * @return String Returns the product name.
+     * @throws MyRetailException
+     */
     @HystrixCommand(fallbackMethod = "getProductName_FallBack")
     public String getProductNameByRemoteCall(String productId) throws MyRetailException {
 
@@ -51,7 +57,7 @@ public class ConnectHttpClient {
             if (jsonResponse != null) {
                 ObjectMapper mapper = new ObjectMapper();
                 JsonNode jsonObject = mapper.readTree(jsonResponse);
-                log.debug("JSON Response from Remote Client  :" + jsonResponse.toString());
+                log.debug("JSON Response from Remote Client  :" + jsonResponse);
                 if (jsonObject.get("product").get("item")
                         .get("product_description") != null) {
                     JsonNode productDescription = jsonObject.get("product").get("item")
@@ -69,7 +75,11 @@ public class ConnectHttpClient {
         return productName;
     }
 
-    //Fallback method when the remote client is down.
+    /**
+     * Fallback method for when the remote client call fails.
+     * @param productId
+     * @return String
+     */
     public String getProductName_FallBack(String productId) {
         log.info("Inside fallBack method. Product API unavailable  :" + apiEndpointURL + "/" + productId);
         return "";

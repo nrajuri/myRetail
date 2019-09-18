@@ -10,6 +10,9 @@ public class CurrentPrice {
     private BigDecimal value;
     private String currencyCode;
 
+    /**
+     * Empty constructor.
+     */
     public CurrentPrice() {
         // TODO Auto-generated constructor stub
     }
