@@ -26,7 +26,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private RemoteClient RemoteClient;
+    private RemoteClient remoteClient;
 
     @Autowired
     private ProductHelper helperObject;
@@ -50,7 +50,7 @@ public class ProductService {
         }
 
         //Retrieve title from remote API
-        productName = RemoteClient.getProductNameByRemoteCall(productId);
+        productName = remoteClient.getProductNameByRemoteCall(productId);
         if (productName.isEmpty()) {
             throw new MyRetailException(HttpStatus.NOT_FOUND.value(), "Product Remote API unavailable");
         }
