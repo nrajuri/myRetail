@@ -2,7 +2,7 @@ package com.codetest.app.myretail.service;
 
 import com.codetest.app.myretail.entity.CurrentPrice;
 import com.codetest.app.myretail.entity.Product;
-import com.codetest.app.myretail.remoteclient.ConnectHttpClient;
+import com.codetest.app.myretail.remoteclient.RemoteClient;
 import com.codetest.app.myretail.repository.ProductRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,24 +22,18 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
-@TestPropertySource(properties = {"product-api-endpoint=http://redsky.target.com",})
+@TestPropertySource(properties = {"product-api-endpoint=https://redsky.target.com/v2/pdp/tcin/",})
 public class ProductServiceTest {
 
     @Mock
-    ProductService productService;
-
-    @Mock
     ProductRepository productRepository;
-
-    @Mock
-    ConnectHttpClient connectHttpClientMock;
 
     @Value("${product-api-endpoint}")
     String endPoint;
 
     @Test
     public void testValueSetup() {
-        assertEquals("http://redsky.target.com", endPoint);
+        assertEquals("https://redsky.target.com/v2/pdp/tcin/", endPoint);
     }
 
     @Configuration
