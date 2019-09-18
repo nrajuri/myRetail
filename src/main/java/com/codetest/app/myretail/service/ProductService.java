@@ -6,7 +6,7 @@ package com.codetest.app.myretail.service;
 import com.codetest.app.myretail.entity.Product;
 import com.codetest.app.myretail.exception.MyRetailException;
 import com.codetest.app.myretail.helper.ProductHelper;
-import com.codetest.app.myretail.remoteclient.ConnectHttpClient;
+import com.codetest.app.myretail.remoteclient.RemoteClient;
 import com.codetest.app.myretail.repository.ProductRepository;
 import com.codetest.app.myretail.response.ProductDto;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private ConnectHttpClient connectHttpClient;
+    private RemoteClient RemoteClient;
 
     @Autowired
     private ProductHelper helperObject;
@@ -50,7 +50,7 @@ public class ProductService {
         }
 
         //Retrieve title from remote API
-        productName = connectHttpClient.getProductNameByRemoteCall(productId);
+        productName = RemoteClient.getProductNameByRemoteCall(productId);
         if (productName.isEmpty()) {
             throw new MyRetailException(HttpStatus.NOT_FOUND.value(), "Product Remote API unavailable");
         }
