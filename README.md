@@ -29,7 +29,7 @@ Read the API documentation in Swagger2 (run http://localhost:8089/swagger-ui.htm
 #### MyRetail API Solution provides the ability to:
 * Retrieve product and price information by Product Id.
 * Update the price information in the database.
-* Provide basic authentication to the API.
+* Type of authentication - Basic Auth.
 * One rest end point is not secure/authenticated.
                                Method               Request                   Credentials
                                  GET              /products/{id}              [SECURE -- user/user]
