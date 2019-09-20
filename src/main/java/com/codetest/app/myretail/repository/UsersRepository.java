@@ -1,6 +1,6 @@
 package com.codetest.app.myretail.repository;
 
-import com.codetest.app.myretail.response.Users;
+import com.codetest.app.myretail.entity.Users;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**

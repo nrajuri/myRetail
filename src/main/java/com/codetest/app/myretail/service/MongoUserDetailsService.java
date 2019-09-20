@@ -1,8 +1,8 @@
 package com.codetest.app.myretail.service;
 
 import com.codetest.app.myretail.repository.UsersRepository;
-import com.codetest.app.myretail.response.Role;
-import com.codetest.app.myretail.response.Users;
+import com.codetest.app.myretail.entity.Role;
+import com.codetest.app.myretail.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

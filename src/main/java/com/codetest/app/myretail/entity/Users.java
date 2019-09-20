@@ -1,4 +1,4 @@
-package com.codetest.app.myretail.response;
+package com.codetest.app.myretail.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
