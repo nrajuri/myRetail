@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author nrajuri
  *
@@ -30,6 +32,20 @@ public class ProductService {
 
     @Autowired
     private ProductHelper helperObject;
+
+    /**
+     * Gets all product details from DB
+     * @return (@ Link Product) list of products.
+     * @throws MyRetailException
+     */
+    public List<Product> getAllProducts() throws MyRetailException {
+        List<Product> productList = productRepository.findAll();
+        if (productList.size() == 0) {
+            log.debug("Exception while fetching product data from DB ");
+            throw new MyRetailException(HttpStatus.NOT_FOUND.value(), "Products not found in DB");
+        }
+        return productList;
+    }
 
     /**
      * Gets product information from DB.

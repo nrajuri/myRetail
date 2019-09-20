@@ -1,5 +1,6 @@
 package com.codetest.app.myretail.controller;
 
+import com.codetest.app.myretail.entity.Product;
 import com.codetest.app.myretail.exception.MyRetailException;
 import com.codetest.app.myretail.response.ProductDto;
 import com.codetest.app.myretail.response.ProductResponse;
@@ -11,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author nrajuri
@@ -28,8 +31,9 @@ public class ProductController {
      * No authentication required.
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String index() {
-        return "No security on me. I can show all the products when implemented.";
+    public List<Product> getAllProducts() throws MyRetailException {
+        log.info("No security on me. I can show all the products.");
+        return productService.getAllProducts();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,7 +54,7 @@ public class ProductController {
     public ResponseEntity<ProductResponse> exceptionHandler(MyRetailException ex) {
         ProductResponse error = new ProductResponse(ex.getErrorCode(), ex.getMessage());
         log.debug(ex.getErrorMessage(), ex);
-        return new ResponseEntity<ProductResponse>(error, HttpStatus.valueOf(ex.getErrorCode()));
+        return new ResponseEntity<>(error, HttpStatus.valueOf(ex.getErrorCode()));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,5 +67,3 @@ public class ProductController {
         return new ResponseEntity<ProductResponse>(HttpStatus.OK);
     }
 }
-
-//TODO create "ErrorResponse" POJO to use in "ExceptionHandler" and "ProductResponse" only for success scenario.

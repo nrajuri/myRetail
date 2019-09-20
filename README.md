@@ -35,3 +35,22 @@ Read the API documentation in Swagger2 (run http://localhost:8089/swagger-ui.htm
                                  GET              /products/{id}              [SECURE -- user/user]
                                  PUT              /products/{id}              [SECURE -- admin/admin, dbuser/dbuser]
 				                 GET              /products                   [NOT SECURE]
+
+#### Output Results
+* Retrieve product details with no authentication.
+![](.README_images/066d173a.png)
+* Retrieve product details with proper authentication.
+![](.README_images/8722c5cd.png)
+* Update price details with "USER" role. (eg:user/user)
+![](.README_images/12f6fa0e.png)
+![](.README_images/0bebf3ed.png)
+* Update price with "ADMIN" role. (eg: admin/admin, dbuser/dbuser)
+![](.README_images/be586218.png)
+![](.README_images/b18c7ba6.png)
+* Retrieve updated product details.
+![](.README_images/1f8e4d32.png)
+* Mismatch in update body and path parameter error.
+![](.README_images/3f94c7e6.png)
+* Fetching all productId details without authentication.(Just to show authentication levels for different end points
+, would not implement in production in this way.)
+![](.README_images/df3fc2c5.png)
