@@ -30,7 +30,7 @@ public class RemoteClient {
     private RestTemplate restTemplate;
 
     @Value("${product-api-endpoint}")
-    private String apiEndpointURL;
+    private String remoteClientURL;
     private String productName = null;
 
     public RemoteClient() {
@@ -47,7 +47,7 @@ public class RemoteClient {
 
         try {
             log.info("Inside ConnectHttpClient().getProductNameByRemoteCall");
-            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(apiEndpointURL + productId)
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(remoteClientURL + productId)
                     .queryParam("excludes",
                             "taxonomy,price,promotion,bulk_ship,rating_and_review_reviews," +
                                     "rating_and_review_statistics,question_answer_statistics");
@@ -80,7 +80,7 @@ public class RemoteClient {
      * @return String
      */
     public String getProductName_FallBack(String productId) {
-        log.info("Inside fallBack method. Product API unavailable  :" + apiEndpointURL + "/" + productId);
+        log.info("Inside fallBack method. Product API unavailable  :" + remoteClientURL + "/" + productId);
         return "";
     }
 
