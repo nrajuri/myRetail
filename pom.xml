@@ -50,12 +50,12 @@
             <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
             <version>2.0.2.RELEASE</version>
         </dependency>
-          <!--mongo db embedded-->
+        <!--mongo db embedded-->
         <dependency>
             <groupId>de.flapdoodle.embed</groupId>
             <artifactId>de.flapdoodle.embed.mongo</artifactId>
         </dependency>
-          <!--mongo db embedded-->
+        <!--mongo db embedded-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -93,6 +93,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>
