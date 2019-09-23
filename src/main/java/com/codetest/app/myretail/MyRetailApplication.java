@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * MyRetailApplication
  */
 @SpringBootApplication
-@Configuration
 @EnableCircuitBreaker
 @EnableHystrixDashboard
 public class MyRetailApplication {
